@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="spotifyPrimaryBackground">#121314</color>
+    <color name="spotifyPrimaryText">@color/md_white_1000</color>
+    <color name="spotifySearchBarBackground">@color/md_white_1000</color>
+    <color name="spotifyAccentColor">#222326</color>
+</resources>
