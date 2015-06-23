@@ -240,6 +240,8 @@ public class Activity_MainFragment extends Fragment {
             super.onPostExecute(LoArtists);
             if (LoArtists.size() == 0){
                 Toast.makeText(getActivity(), getActivity().getString(R.string.notificaiton_failed_search), Toast.LENGTH_SHORT).show();
+                mSpotifyArtistAdapter.clearArtists();
+                mSpotifyArtistAdapter.notifyDataSetChanged();
             }else{
                 mLoArtist = LoArtists;
                 mSpotifyArtistAdapter.replaceArtistList(mLoArtist);
