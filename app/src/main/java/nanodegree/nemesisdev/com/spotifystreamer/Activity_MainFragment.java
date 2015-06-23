@@ -60,7 +60,7 @@ public class Activity_MainFragment extends Fragment {
             mSpotifyArtistAdapter = new SpotifyArtistRecyclerAdapter(new ArrayList<Artist>(), getActivity());
         }
 
-        if (!mRecentSearch.equalsIgnoreCase("")){
+        if (!mRecentSearch.equalsIgnoreCase("") && (mLoArtist == null || mLoArtist.size() == 0)){
             bRepopulateArtists = true;
         }
     }
@@ -79,6 +79,9 @@ public class Activity_MainFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        //This will be called in the event that the artist array is null or empty and there is a search string
+        //This could happen if the activity is closed at any point but the most recent search was retained
+        //The alternative is a populated search box with no results, which I'd prefer not to have
         if (bRepopulateArtists){
             searchForArtist();
             bRepopulateArtists = false;
@@ -191,6 +194,7 @@ public class Activity_MainFragment extends Fragment {
             Log.v(TAG, "Invalid Search String");
         }else{
             try {
+                Log.v(TAG, "SEARCHING FOR ARTIST");
                 searchTask task = new searchTask();
                 task.execute(mRecentSearch);
             } catch (Exception e) {

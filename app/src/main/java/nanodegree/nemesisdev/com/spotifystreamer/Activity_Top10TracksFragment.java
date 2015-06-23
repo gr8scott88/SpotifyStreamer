@@ -1,6 +1,9 @@
 package nanodegree.nemesisdev.com.spotifystreamer;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -41,10 +44,9 @@ public class Activity_Top10TracksFragment extends Fragment {
     private RecyclerView mTrackReyclerView;
     private String artistID;
     private String locale;
-
     private ArrayList<Track> mLoTrack;
-
     public Activity_Top10TracksFragment() {   }
+    private boolean isFirstLaunch = true;
 
 
     @Override
@@ -57,6 +59,7 @@ public class Activity_Top10TracksFragment extends Fragment {
         }else{
             mSpotifyTracktAdapter = new SpotifyTrackRecyclerAdapter(new ArrayList<Track>(), getActivity());
         }
+
     }
 
     @Override
@@ -64,16 +67,25 @@ public class Activity_Top10TracksFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_top10_tracks, container, false);
-        mSpotifyTracktAdapter = new SpotifyTrackRecyclerAdapter(new ArrayList<Track>(), getActivity());
 
         Intent intent = getActivity().getIntent();
         boolean hasExtra = intent.hasExtra(getString(R.string.key_artist_id_extra));
         if (intent != null && hasExtra) {
             artistID = intent.getStringExtra(getString(R.string.key_artist_id_extra));
+        }else{
+            //Error in the event that an artist id isnt passed, which means something went wrong
+            Toast.makeText(getActivity(), getActivity().getString(R.string.error_did_not_receive_artist), Toast.LENGTH_SHORT).show();
         }
 
         locale = getActivity().getResources().getConfiguration().locale.getCountry();
         initUIComponents(rootView);
+
+        if (isFirstLaunch){
+            buildTrackList(artistID);
+        }
+
+        isFirstLaunch = false;
+
         return rootView;
     }
 
@@ -84,21 +96,30 @@ public class Activity_Top10TracksFragment extends Fragment {
     }
 
 
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        buildTrackList(artistID);
-    }
-
-
     private void buildTrackList(String artistID){
+        
         try {
-            buildTrackListTask task = new buildTrackListTask();
-            task.execute(artistID, locale);
+
+            if (isNetworkAvailable()) {
+                Log.v(TAG, "BUILDING TRACK LIST");
+                buildTrackListTask task = new buildTrackListTask();
+                task.execute(artistID, locale);
+            }else{
+                Toast.makeText(getActivity(), getActivity().getString(R.string.error_no_internet), Toast.LENGTH_SHORT).show();
+            }
+
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    //Based on stack overflow snippet from suggestion
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
     public class buildTrackListTask extends AsyncTask<String, Void, ArrayList<Track>> {

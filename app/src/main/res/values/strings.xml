@@ -10,4 +10,6 @@
     <string name="key_artist_id_extra">KEY_ARTIST_ID</string>
     <string name="pref_key_last_searched">KEY_LAST_SEARCH</string>
     <string name="key_track_id_extra">KEY_TRACK_ID</string>
+    <string name="error_did_not_receive_artist">Error, please retry search</string>
+    <string name="error_no_internet">No Internet Connection</string>
 </resources>
