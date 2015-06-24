@@ -1,6 +1,9 @@
 package nanodegree.nemesisdev.com.spotifystreamer;
 
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -194,9 +197,14 @@ public class Activity_MainFragment extends Fragment {
             Log.v(TAG, "Invalid Search String");
         }else{
             try {
-                Log.v(TAG, "SEARCHING FOR ARTIST");
-                searchTask task = new searchTask();
-                task.execute(mRecentSearch);
+                if (isNetworkAvailable()) {
+                    Log.v(TAG, "SEARCHING FOR ARTIST");
+                    searchTask task = new searchTask();
+                    task.execute(mRecentSearch);
+                }else{
+                    Toast.makeText(getActivity(), getActivity().getString(R.string.error_no_internet), Toast.LENGTH_SHORT).show();
+                }
+
             } catch (Exception e) {
 
                 //Log.v(TAG, "Invalid Search String");
@@ -242,7 +250,7 @@ public class Activity_MainFragment extends Fragment {
         @Override
         protected void onPostExecute(ArrayList<Artist> LoArtists) {
             super.onPostExecute(LoArtists);
-            if (LoArtists.size() == 0){
+            if (LoArtists != null && LoArtists.size() == 0){
                 Toast.makeText(getActivity(), getActivity().getString(R.string.notificaiton_failed_search), Toast.LENGTH_SHORT).show();
                 mSpotifyArtistAdapter.clearArtists();
                 mSpotifyArtistAdapter.notifyDataSetChanged();
@@ -253,4 +261,15 @@ public class Activity_MainFragment extends Fragment {
             }
         }
     }
+
+
+
+    //Based on stack overflow snippet from suggestion
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
 }
