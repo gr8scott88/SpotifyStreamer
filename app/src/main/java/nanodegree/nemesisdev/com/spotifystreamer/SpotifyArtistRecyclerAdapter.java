@@ -48,10 +48,13 @@ public class SpotifyArtistRecyclerAdapter extends RecyclerView.Adapter<SpotifyAr
         return holder;
     }
 
+
+    //Replace the current list of artists with a new passed list
     public void replaceArtistList(ArrayList<Artist> newLoArtist){
         this.mLoArtist = newLoArtist;
     }
 
+    //Clear the list of artists
     public void clearArtists(){
         this.mLoArtist = new ArrayList<Artist>();
     }
@@ -64,8 +67,9 @@ public class SpotifyArtistRecyclerAdapter extends RecyclerView.Adapter<SpotifyAr
         holder.mArtistName.setText(artist.name);
 
         try {
-            String imageUrl = artist.images.get(0).url;
             //TODO: Add logic to which image gets pulled based on screen size
+            String imageUrl = artist.images.get(0).url;
+
             Picasso.with(mContext).load(imageUrl)
                     .error(R.drawable.spotify_icon_no_image_found)
                     .placeholder(R.drawable.spotify_icon_no_image_found)

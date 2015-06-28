@@ -50,8 +50,9 @@ public class SpotifyTrackRecyclerAdapter extends RecyclerView.Adapter<SpotifyTra
         holder.mTrack.setText(track.name);
 
         try {
-            String imageUrl = track.album.images.get(0).url;
             //TODO: Add logic to which image gets pulled based on screen size
+            String imageUrl = track.album.images.get(0).url;
+
             Picasso.with(mContext).load(imageUrl)
                     .error(R.drawable.spotify_icon_no_image_found)
                     .placeholder(R.drawable.spotify_icon_no_image_found)
@@ -68,6 +69,8 @@ public class SpotifyTrackRecyclerAdapter extends RecyclerView.Adapter<SpotifyTra
         return this.mLoTracks.size();
     }
 
+
+    //Replace current track list with a passed track list
     public void replaceTrackList(ArrayList<Track> newLoTrack){
         this.mLoTracks = newLoTrack;
     }

@@ -54,6 +54,7 @@ public class Activity_Top10TracksFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
 
+        //Initializes the recycle view adapter, if the list of tracks is not empty use that, otherwise initialize new empty list
         if (mLoTrack !=null){
             mSpotifyTracktAdapter = new SpotifyTrackRecyclerAdapter(mLoTrack, getActivity());
         }else{
@@ -69,21 +70,26 @@ public class Activity_Top10TracksFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_top10_tracks, container, false);
 
         Intent intent = getActivity().getIntent();
+
+        //Retrieve the artist ID that should be passed from the main search activity
         boolean hasExtra = intent.hasExtra(getString(R.string.key_artist_id_extra));
         if (intent != null && hasExtra) {
             artistID = intent.getStringExtra(getString(R.string.key_artist_id_extra));
         }else{
-            //Error in the event that an artist id isnt passed, which means something went wrong
+            //Error in the event that an artist id isn't passed, which means something went wrong
             Toast.makeText(getActivity(), getActivity().getString(R.string.error_did_not_receive_artist), Toast.LENGTH_SHORT).show();
         }
 
+        //Get the users set local to pass a country code to the spotify API
         locale = getActivity().getResources().getConfiguration().locale.getCountry();
         initUIComponents(rootView);
 
+        //Only build the track list if this is the first launch of the fragment
         if (isFirstLaunch){
             buildTrackList(artistID);
         }
 
+        //Once the track list has been build once, save state
         isFirstLaunch = false;
 
         return rootView;
@@ -95,16 +101,17 @@ public class Activity_Top10TracksFragment extends Fragment {
         mTrackReyclerView.setAdapter(mSpotifyTracktAdapter);
     }
 
-
+    //Builds track list based on passed artist id
     private void buildTrackList(String artistID){
         
         try {
-
+            //If network is availble, build track list based on spotify API
             if (isNetworkAvailable()) {
                 Log.v(TAG, "BUILDING TRACK LIST");
                 buildTrackListTask task = new buildTrackListTask();
                 task.execute(artistID, locale);
             }else{
+                //If there is no internet connection, do not attempt to connect to spotify API
                 Toast.makeText(getActivity(), getActivity().getString(R.string.error_no_internet), Toast.LENGTH_SHORT).show();
             }
 
@@ -114,7 +121,7 @@ public class Activity_Top10TracksFragment extends Fragment {
         }
     }
 
-    //Based on stack overflow snippet from suggestion
+    //Based on stack overflow snippet from suggestion, determines whether there is an internet connection
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);

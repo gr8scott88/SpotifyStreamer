@@ -12,4 +12,5 @@
     <string name="key_track_id_extra">KEY_TRACK_ID</string>
     <string name="error_did_not_receive_artist">Error, please retry search</string>
     <string name="error_no_internet">No Internet Connection</string>
+    <string name="error_invalid_search_string">Invalid search string</string>
 </resources>

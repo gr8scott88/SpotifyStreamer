@@ -28,6 +28,7 @@
             android:id="@+id/search_bar_input_box"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:singleLine="true"
             android:layout_toRightOf="@id/search_bar_search_button"/>
 
         <ImageButton

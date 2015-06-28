@@ -55,14 +55,18 @@ public class Activity_MainFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
 
+        //Retreive last search string
         loadLastSearch();
 
+
+        //Initialize the recyler view adapter, if theres an existing artist list use that, otherwise use a new empty list
         if (mLoArtist !=null){
             mSpotifyArtistAdapter = new SpotifyArtistRecyclerAdapter(mLoArtist, getActivity());
         }else{
             mSpotifyArtistAdapter = new SpotifyArtistRecyclerAdapter(new ArrayList<Artist>(), getActivity());
         }
 
+        //If there is a search string saved, but the list of artists is null or size 0, then rebuild the list of artists with the search string
         if (!mRecentSearch.equalsIgnoreCase("") && (mLoArtist == null || mLoArtist.size() == 0)){
             bRepopulateArtists = true;
         }
@@ -112,6 +116,8 @@ public class Activity_MainFragment extends Fragment {
     }
 
     public void attachListeners(){
+
+        //Search for artists based on search string on click
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,6 +130,7 @@ public class Activity_MainFragment extends Fragment {
             }
         });
 
+        //Clear the edit text and the search results on click
         clearSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,6 +142,8 @@ public class Activity_MainFragment extends Fragment {
             }
         });
 
+
+        //This text changed listener exists solely to show & hide the clear button based on whether there is text in the search bar
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -154,6 +163,7 @@ public class Activity_MainFragment extends Fragment {
             }
         });
 
+        //Map the enter key to search, so the user doesnt have to interact directly with the ui buttons if they don't want to
         searchBar.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -177,31 +187,41 @@ public class Activity_MainFragment extends Fragment {
         });
     }
 
+    //Save the most recent search to a shared preference to enable rebuilding app state if necessary
     private void saveLastSearch(String searchString){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         prefs.edit().putString(getActivity().getString(R.string.pref_key_last_searched), searchString).apply();
     }
 
+
+    //Retrieve the most recent saved search from shared preferences
     private void loadLastSearch(){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mRecentSearch = prefs.getString(getActivity().getString(R.string.pref_key_last_searched), "");
     }
 
+    //Search for a list of artists based on the search bar string
     public void searchForArtist(){
         mRecentSearch = searchBar.getText().toString();
         mRecentSearch = mRecentSearch.trim();
         saveLastSearch(mRecentSearch);
 
         //Log.v(TAG, "Searching on string: " + mRecentSearch);
+
+        //Handle a condition in which the search bar is empty
         if(mRecentSearch.length() == 0){
-            Log.v(TAG, "Invalid Search String");
+            Toast.makeText(getActivity(), getActivity().getString(R.string.error_invalid_search_string), Toast.LENGTH_SHORT).show();
+            //Log.v(TAG, "Invalid Search String");
         }else{
             try {
+
+                //Check if the network is available, if it is, search for artists
                 if (isNetworkAvailable()) {
                     Log.v(TAG, "SEARCHING FOR ARTIST");
                     searchTask task = new searchTask();
                     task.execute(mRecentSearch);
                 }else{
+                    //If there is no internet connection, alert the user and do not attempt to search
                     Toast.makeText(getActivity(), getActivity().getString(R.string.error_no_internet), Toast.LENGTH_SHORT).show();
                 }
 
@@ -213,6 +233,7 @@ public class Activity_MainFragment extends Fragment {
         }
     }
 
+    //Asynce task responsible for returning an artist list via the spotify API
     public class searchTask extends AsyncTask<String, Void, ArrayList<Artist>>{
 
         @Override
@@ -262,9 +283,7 @@ public class Activity_MainFragment extends Fragment {
         }
     }
 
-
-
-    //Based on stack overflow snippet from suggestion
+    //Based on stack overflow snippet from suggestion, determines whether the device has an internet connection
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
