@@ -10,26 +10,17 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Toast;
-
 import java.util.ArrayList;
-import java.util.List;
-
 import kaaes.spotify.webapi.android.SpotifyApi;
 import kaaes.spotify.webapi.android.SpotifyService;
 import kaaes.spotify.webapi.android.models.*;
 import kaaes.spotify.webapi.android.models.Artist;
-
 
 /**
  * A placeholder fragment containing a simple view.
@@ -38,15 +29,11 @@ public class Activity_MainFragment extends Fragment {
     private static final String TAG = Activity_MainFragment.class.getSimpleName();
 
     public SpotifyArtistRecyclerAdapter mSpotifyArtistAdapter;
-
-    private EditText searchBar;
-    private ImageButton searchButton;
-    private ImageButton clearSearch;
     private RecyclerView mArtistReyclerView;
-
     private ArrayList<Artist> mLoArtist;
     private String mRecentSearch;
     private boolean bRepopulateArtists = false;
+    private SearchView searchView;
 
     public Activity_MainFragment() {    }
 
@@ -57,7 +44,6 @@ public class Activity_MainFragment extends Fragment {
 
         //Retreive last search string
         loadLastSearch();
-
 
         //Initialize the recyler view adapter, if theres an existing artist list use that, otherwise use a new empty list
         if (mLoArtist !=null){
@@ -90,101 +76,37 @@ public class Activity_MainFragment extends Fragment {
         //This could happen if the activity is closed at any point but the most recent search was retained
         //The alternative is a populated search box with no results, which I'd prefer not to have
         if (bRepopulateArtists){
-            searchForArtist();
+            searchForArtist(mRecentSearch);
             bRepopulateArtists = false;
         }
     }
 
     private void initUIComponents(View rootView){
-        searchButton = (ImageButton) rootView.findViewById(R.id.search_bar_search_button);
-        searchBar = (EditText) rootView.findViewById(R.id.search_bar_input_box);
-
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mRecentSearch = prefs.getString(getActivity().getString(R.string.pref_key_last_searched), "");
-        searchBar.setText(mRecentSearch);
-
-        clearSearch = (ImageButton) rootView.findViewById(R.id.search_bar_clear_search);
-        if (searchBar.getText().toString().trim().length() == 0){
-            clearSearch.setVisibility(View.GONE);
-        }else{
-            clearSearch.setVisibility(View.VISIBLE);
-        }
-
+        searchView = (SearchView)rootView.findViewById(R.id.search_artist);
+        searchView.setQuery(mRecentSearch, true);
         mArtistReyclerView = (RecyclerView) rootView.findViewById(R.id.artist_list);
         mArtistReyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mArtistReyclerView.setAdapter(mSpotifyArtistAdapter);
     }
 
     public void attachListeners(){
-
-        //Search for artists based on search string on click
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Log.v(TAG, "Search Button Clicked");
-                try {
-                    searchForArtist();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        //Clear the edit text and the search results on click
-        clearSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                searchBar.setText("");
-                saveLastSearch("");
-                clearSearch.setVisibility(View.GONE);
-                mSpotifyArtistAdapter.clearArtists();
-                mSpotifyArtistAdapter.notifyDataSetChanged();
-            }
-        });
-
-
-        //This text changed listener exists solely to show & hide the clear button based on whether there is text in the search bar
-        searchBar.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (searchBar.getText().toString().trim().length() == 0) {
-                    clearSearch.setVisibility(View.GONE);
-                } else {
-                    clearSearch.setVisibility(View.VISIBLE);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
-
-        //Map the enter key to search, so the user doesnt have to interact directly with the ui buttons if they don't want to
-        searchBar.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                    switch (keyCode) {
-                        case KeyEvent.KEYCODE_DPAD_CENTER:
-                        case KeyEvent.KEYCODE_ENTER:
-                            //Log.v(TAG, "Search Button Clicked");
-                            try {
-                                searchForArtist();
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            return true;
-                        default:
-                            break;
+        searchView.setOnQueryTextListener(
+                new SearchView.OnQueryTextListener() {
+                    @Override
+                    public boolean onQueryTextSubmit(String query) {
+                        Log.v(TAG, "Initial Query: " + query);
+                        String trimmedQuery = query.trim();
+                        Log.v(TAG, "Trimmed Query: " + trimmedQuery);
+                        searchForArtist(trimmedQuery);
+                        return true;
                     }
-                }
-                return false;
-            }
-        });
+                    @Override
+                    public boolean onQueryTextChange(String newText) {
+                        return false;
+                    }
+                });
     }
 
     //Save the most recent search to a shared preference to enable rebuilding app state if necessary
@@ -201,15 +123,14 @@ public class Activity_MainFragment extends Fragment {
     }
 
     //Search for a list of artists based on the search bar string
-    public void searchForArtist(){
-        mRecentSearch = searchBar.getText().toString();
-        mRecentSearch = mRecentSearch.trim();
-        saveLastSearch(mRecentSearch);
+    public void searchForArtist(String search){
+
+        saveLastSearch(search);
 
         //Log.v(TAG, "Searching on string: " + mRecentSearch);
 
         //Handle a condition in which the search bar is empty
-        if(mRecentSearch.length() == 0){
+        if(search.length() == 0){
             Toast.makeText(getActivity(), getActivity().getString(R.string.error_invalid_search_string), Toast.LENGTH_SHORT).show();
             //Log.v(TAG, "Invalid Search String");
         }else{
@@ -219,7 +140,7 @@ public class Activity_MainFragment extends Fragment {
                 if (isNetworkAvailable()) {
                     Log.v(TAG, "SEARCHING FOR ARTIST");
                     searchTask task = new searchTask();
-                    task.execute(mRecentSearch);
+                    task.execute(search);
                 }else{
                     //If there is no internet connection, alert the user and do not attempt to search
                     Toast.makeText(getActivity(), getActivity().getString(R.string.error_no_internet), Toast.LENGTH_SHORT).show();
@@ -233,7 +154,7 @@ public class Activity_MainFragment extends Fragment {
         }
     }
 
-    //Asynce task responsible for returning an artist list via the spotify API
+    //Async task responsible for returning an artist list via the spotify API
     public class searchTask extends AsyncTask<String, Void, ArrayList<Artist>>{
 
         @Override
@@ -290,5 +211,4 @@ public class Activity_MainFragment extends Fragment {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
-
 }
