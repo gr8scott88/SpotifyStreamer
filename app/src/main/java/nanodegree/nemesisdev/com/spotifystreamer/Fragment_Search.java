@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -25,8 +26,8 @@ import kaaes.spotify.webapi.android.models.Artist;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class Activity_MainFragment extends Fragment {
-    private static final String TAG = Activity_MainFragment.class.getSimpleName();
+public class Fragment_Search extends Fragment{
+    private static final String TAG = Fragment_Search.class.getSimpleName();
 
     public SpotifyArtistRecyclerAdapter mSpotifyArtistAdapter;
     private RecyclerView mArtistReyclerView;
@@ -35,7 +36,10 @@ public class Activity_MainFragment extends Fragment {
     private boolean bRepopulateArtists = false;
     private SearchView searchView;
 
-    public Activity_MainFragment() {    }
+    public Fragment_Search() {    }
+
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -211,4 +215,7 @@ public class Activity_MainFragment extends Fragment {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
+
+
+
 }

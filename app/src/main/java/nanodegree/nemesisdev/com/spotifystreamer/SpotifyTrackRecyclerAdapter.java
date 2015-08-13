@@ -26,6 +26,10 @@ public class SpotifyTrackRecyclerAdapter extends RecyclerView.Adapter<SpotifyTra
         this.mContext = mContext;
     }
 
+    public interface TrackCallback {
+        public void onTrackClick(int pos,  ArrayList<Track> LoTrack);
+    }
+    
     @Override
     public SpotifyTrackHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_track, null);
@@ -33,9 +37,17 @@ public class SpotifyTrackRecyclerAdapter extends RecyclerView.Adapter<SpotifyTra
             @Override
             public void onTrackClick(View caller, Integer pos) {
                 String clickedTrack = (String) ((TextView) caller.findViewById(R.id.track_name)).getText().toString();
+
+                Log.v(TAG, "Clicked track has sample url of: " + mLoTracks.get(pos).preview_url);
+
+                ((TrackCallback) mContext).onTrackClick(pos, mLoTracks);
+
+                /*
                 Intent intent = new Intent(mContext, Activity_Spotify_Streamer.class);
                 intent.putExtra(mContext.getString(R.string.key_track_id_extra), mLoTracks.get(pos).id);
                 mContext.startActivity(intent);
+                */
+
             }
         });
         return holder;

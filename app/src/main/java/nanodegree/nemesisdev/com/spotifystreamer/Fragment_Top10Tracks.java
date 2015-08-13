@@ -9,27 +9,17 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import kaaes.spotify.webapi.android.SpotifyApi;
 import kaaes.spotify.webapi.android.SpotifyService;
-import kaaes.spotify.webapi.android.models.Artist;
-import kaaes.spotify.webapi.android.models.ArtistsPager;
-import kaaes.spotify.webapi.android.models.Pager;
 import kaaes.spotify.webapi.android.models.Track;
 import kaaes.spotify.webapi.android.models.Tracks;
 
@@ -37,15 +27,15 @@ import kaaes.spotify.webapi.android.models.Tracks;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class Activity_Top10TracksFragment extends Fragment {
-    private static final String TAG = Activity_Top10TracksFragment.class.getSimpleName();
+public class Fragment_Top10Tracks extends Fragment {
+    private static final String TAG = Fragment_Top10Tracks.class.getSimpleName();
 
     public SpotifyTrackRecyclerAdapter mSpotifyTracktAdapter;
     private RecyclerView mTrackReyclerView;
     private String artistID;
     private String locale;
     private ArrayList<Track> mLoTrack;
-    public Activity_Top10TracksFragment() {   }
+    public Fragment_Top10Tracks() {   }
     private boolean isFirstLaunch = true;
 
 
@@ -69,12 +59,15 @@ public class Activity_Top10TracksFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_top10_tracks, container, false);
 
+
+        Bundle arguments  = getArguments();
+
         Intent intent = getActivity().getIntent();
 
         //Retrieve the artist ID that should be passed from the main search activity
         boolean hasExtra = intent.hasExtra(getString(R.string.key_artist_id_extra));
-        if (intent != null && hasExtra) {
-            artistID = intent.getStringExtra(getString(R.string.key_artist_id_extra));
+        if (arguments != null) {
+            artistID = arguments.getString(getString(R.string.key_artist_id_extra));
         }else{
             //Error in the event that an artist id isn't passed, which means something went wrong
             Toast.makeText(getActivity(), getActivity().getString(R.string.error_did_not_receive_artist), Toast.LENGTH_SHORT).show();

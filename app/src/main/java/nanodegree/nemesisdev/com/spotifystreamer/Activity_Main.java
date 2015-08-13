@@ -1,16 +1,44 @@
 package nanodegree.nemesisdev.com.spotifystreamer;
 
+import android.app.Fragment;
+import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
-public class Activity_Main extends AppCompatActivity {
+import java.util.ArrayList;
+
+import kaaes.spotify.webapi.android.models.Track;
+
+public class Activity_Main extends AppCompatActivity implements SpotifyArtistRecyclerAdapter.ArtistCallback, SpotifyTrackRecyclerAdapter.TrackCallback {
+
+    //Layout Types:
+    //  0: Standard 1 pane layout
+    //  1: Widescreen, 2 pane layout
+    //  2+: additional screen options as necessary
+    private int mLayoutType = 0;
+
+    //Tag the fragment so it can be found later as necessary
+    private static final String TOP10FRAG = "TOP10FRAG_TAG";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (findViewById(R.id.song_fragment_container) != null) {
+            mLayoutType = 1;
+            if (savedInstanceState == null) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.song_fragment_container, new Fragment_Top10Tracks(), TOP10FRAG)
+                        .commit();
+            }
+        }
+
+        Toast.makeText(this, "Layout type: " + mLayoutType, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -34,4 +62,61 @@ public class Activity_Main extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onArtistClick(String artistId) {
+        if (mLayoutType == 1){
+            Toast.makeText(this, "(TABLET)Clicked on " + artistId, Toast.LENGTH_SHORT).show();
+            Bundle args = new Bundle();
+            args.putString(this.getString(R.string.key_artist_id_extra), artistId);
+
+            Fragment_Top10Tracks fragment = new Fragment_Top10Tracks();
+            fragment.setArguments(args);
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.song_fragment_container, fragment, TOP10FRAG)
+                    .commit();
+        } else {
+            Intent intent = new Intent(this, Activity_Top10Tracks.class);
+            intent.putExtra(this.getString(R.string.key_artist_id_extra), artistId);
+            startActivity(intent);
+
+           Toast.makeText(this, "(PHONE)Clicked on " + artistId, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onTrackClick(int pos, ArrayList<Track> LoTracks) {
+        Track current = LoTracks.get(pos);
+        if (mLayoutType == 1){
+            Toast.makeText(this, "(TABLET)Clicked on " + current.id, Toast.LENGTH_SHORT).show();
+            Bundle args = new Bundle();
+
+            args.putString(this.getString(R.string.key_track_id_extra), current.id);
+            args.putString(getString(R.string.key_preview_url), current.preview_url);
+
+            showSteamerDialog(args);
+        } else {
+            Toast.makeText(this, "(PHONE)Clicked on " + current.id, Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, Activity_Spotify_Streamer.class);
+            intent.putExtra(this.getString(R.string.key_track_id_extra), current.id);
+            this.startActivity(intent);
+        }
+    }
+
+
+    private void showSteamerDialog(Bundle args){
+        android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        android.support.v4.app.Fragment prev = getSupportFragmentManager().findFragmentByTag("dialog");
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+
+        Fragment_SpotifyStreamer dialogFragment = new Fragment_SpotifyStreamer();
+        dialogFragment.setArguments(args);
+        dialogFragment.show(ft, "streamerDialog");
+        ft.addToBackStack("streamerDialog");
+    }
+
 }

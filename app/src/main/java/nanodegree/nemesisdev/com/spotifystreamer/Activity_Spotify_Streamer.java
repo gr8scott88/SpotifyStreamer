@@ -1,5 +1,6 @@
 package nanodegree.nemesisdev.com.spotifystreamer;
 
+import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,6 +13,27 @@ public class Activity_Spotify_Streamer extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spotify__streamer);
+
+        if (savedInstanceState == null) {
+            // Create the streamer fragment and add it to the activity
+            // using a fragment transaction.
+
+            String artistName = getIntent().getStringExtra(this.getString(R.string.key_track_id_extra));
+            String previewURL = getIntent().getStringExtra(this.getString(R.string.key_preview_url));
+
+            Bundle arguments = new Bundle();
+            arguments.putString(this.getString(R.string.key_track_id_extra), artistName);
+            arguments.putString(this.getString(R.string.key_preview_url), previewURL);
+
+            Fragment_SpotifyStreamer fragment = new Fragment_SpotifyStreamer();
+            fragment.setShowsDialog(false);
+            fragment.setArguments(arguments);
+
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.streamer_fragment_container, fragment)
+                    .commit();
+        }
+
     }
 
 

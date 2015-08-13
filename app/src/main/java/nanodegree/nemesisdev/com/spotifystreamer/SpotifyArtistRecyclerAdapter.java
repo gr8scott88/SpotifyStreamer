@@ -1,14 +1,12 @@
 package nanodegree.nemesisdev.com.spotifystreamer;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
@@ -30,6 +28,10 @@ public class SpotifyArtistRecyclerAdapter extends RecyclerView.Adapter<SpotifyAr
         this.mContext = mContext;
     }
 
+    public interface ArtistCallback {
+        public void onArtistClick(String artistID);
+    }
+
     @Override
     public SpotifyArtistHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_artist, null);
@@ -38,10 +40,15 @@ public class SpotifyArtistRecyclerAdapter extends RecyclerView.Adapter<SpotifyAr
             public void onArtistClick(View caller, Integer pos) {
                 String clickedArtist = (String) ((TextView) caller.findViewById(R.id.artist_name)).getText().toString();
                 //Log.v(TAG, "Clicked on " + clickedArtist + " in position " + pos + " with id " + mLoArtist.get(pos).id);
+
+
+
+                ((ArtistCallback) mContext).onArtistClick(mLoArtist.get(pos).id);
+                /*
                 Intent intent = new Intent(mContext, Activity_Top10Tracks.class);
                 intent.putExtra(mContext.getString(R.string.key_artist_id_extra), mLoArtist.get(pos).id);
                 mContext.startActivity(intent);
-
+                */
                 //Toast.makeText(mContext, "Clicked on " + clickedArtist, Toast.LENGTH_SHORT).show();
             }
         });
