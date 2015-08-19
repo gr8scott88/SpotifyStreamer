@@ -1,5 +1,6 @@
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/fragment_top_10_tracks"
-    android:name="nanodegree.nemesisdev.com.spotifystreamer.Fragment_Top10Tracks"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+          android:id="@+id/fragment_window_top_10_tracks"
+          android:name="nanodegree.nemesisdev.com.spotifystreamer.Fragment_Top10Tracks"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+    />

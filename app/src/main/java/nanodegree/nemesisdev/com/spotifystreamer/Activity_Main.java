@@ -1,16 +1,12 @@
 package nanodegree.nemesisdev.com.spotifystreamer;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-
 import java.util.ArrayList;
-
 import kaaes.spotify.webapi.android.models.Track;
 
 public class Activity_Main extends AppCompatActivity implements SpotifyArtistRecyclerAdapter.ArtistCallback, SpotifyTrackRecyclerAdapter.TrackCallback {
@@ -92,8 +88,15 @@ public class Activity_Main extends AppCompatActivity implements SpotifyArtistRec
             Toast.makeText(this, "(TABLET)Clicked on " + current.id, Toast.LENGTH_SHORT).show();
             Bundle args = new Bundle();
 
-            args.putString(this.getString(R.string.key_track_id_extra), current.id);
-            args.putString(getString(R.string.key_preview_url), current.preview_url);
+            //Build parcelable track list from the list of tracks
+            //TODO increase efficiency?
+            ArrayList<ParcelableTrack> parcelableTrackList = new ArrayList<ParcelableTrack>();
+            for (Track t : LoTracks){
+                parcelableTrackList.add(new ParcelableTrack(t));
+            }
+
+            args.putInt(getString(R.string.key_selected_track), pos);
+            args.putParcelableArrayList(getString(R.string.key_parcelable_track_list), parcelableTrackList);
 
             showSteamerDialog(args);
         } else {
@@ -115,7 +118,10 @@ public class Activity_Main extends AppCompatActivity implements SpotifyArtistRec
 
         Fragment_SpotifyStreamer dialogFragment = new Fragment_SpotifyStreamer();
         dialogFragment.setArguments(args);
+
+        //ft.commitAllowingStateLoss();
         dialogFragment.show(ft, "streamerDialog");
+
         ft.addToBackStack("streamerDialog");
     }
 

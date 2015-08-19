@@ -6,11 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-
 import java.util.ArrayList;
-
 import kaaes.spotify.webapi.android.models.Track;
-
 
 public class Activity_Top10Tracks extends AppCompatActivity implements SpotifyTrackRecyclerAdapter.TrackCallback{
 
@@ -20,6 +17,7 @@ public class Activity_Top10Tracks extends AppCompatActivity implements SpotifyTr
         setContentView(R.layout.activity_top10_tracks);
 
         if (savedInstanceState == null) {
+
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
 
@@ -32,7 +30,7 @@ public class Activity_Top10Tracks extends AppCompatActivity implements SpotifyTr
             fragment.setArguments(arguments);
 
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_top_10_tracks, fragment)
+                    .add(R.id.fragment_window_top_10_tracks, fragment)
                     .commit();
         }
 
@@ -67,8 +65,17 @@ public class Activity_Top10Tracks extends AppCompatActivity implements SpotifyTr
         Toast.makeText(this, "(PHONE)Clicked on " + current.id, Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(this, Activity_Spotify_Streamer.class);
-        intent.putExtra(this.getString(R.string.key_track_id_extra), current.id);
-        intent.putExtra(getString(R.string.key_preview_url), current.preview_url);
+        intent.putExtra(getString(R.string.key_selected_track), pos);
+
+
+        //Build parcelable track list from the list of tracks
+        //TODO increase efficiency?
+        ArrayList<ParcelableTrack> parcelableTrackList = new ArrayList<ParcelableTrack>();
+        for (Track t : LoTracks){
+            parcelableTrackList.add(new ParcelableTrack(t));
+        }
+
+        intent.putParcelableArrayListExtra(getString(R.string.key_parcelable_track_list), parcelableTrackList);
         this.startActivity(intent);
 
 

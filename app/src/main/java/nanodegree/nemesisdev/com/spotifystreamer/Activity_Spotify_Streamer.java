@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+
 
 public class Activity_Spotify_Streamer extends ActionBarActivity {
 
@@ -17,13 +19,13 @@ public class Activity_Spotify_Streamer extends ActionBarActivity {
         if (savedInstanceState == null) {
             // Create the streamer fragment and add it to the activity
             // using a fragment transaction.
-
-            String artistName = getIntent().getStringExtra(this.getString(R.string.key_track_id_extra));
-            String previewURL = getIntent().getStringExtra(this.getString(R.string.key_preview_url));
-
             Bundle arguments = new Bundle();
-            arguments.putString(this.getString(R.string.key_track_id_extra), artistName);
-            arguments.putString(this.getString(R.string.key_preview_url), previewURL);
+
+            int currentTrack = getIntent().getIntExtra(this.getString(R.string.key_selected_track), 0);
+            ArrayList<ParcelableTrack> LoTracks = getIntent().getParcelableArrayListExtra(getString(R.string.key_parcelable_track_list));
+
+            arguments.putInt(getString(R.string.key_selected_track), currentTrack);
+            arguments.putParcelableArrayList(getString(R.string.key_parcelable_track_list), LoTracks);
 
             Fragment_SpotifyStreamer fragment = new Fragment_SpotifyStreamer();
             fragment.setShowsDialog(false);

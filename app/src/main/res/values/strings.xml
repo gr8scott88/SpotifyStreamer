@@ -15,4 +15,6 @@
     <string name="error_invalid_search_string">Invalid search string</string>
     <string name="search_query_hint_artist">Artist Name</string>
     <string name="key_preview_url">KEY_PREVIEW_URL</string>
+    <string name="key_parcelable_track_list">KEY_PARCELABLE_TRACK_LIST</string>
+    <string name="key_selected_track">KEY_SELECTED_TRACK</string>
 </resources>

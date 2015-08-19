@@ -23,9 +23,7 @@ import kaaes.spotify.webapi.android.SpotifyService;
 import kaaes.spotify.webapi.android.models.*;
 import kaaes.spotify.webapi.android.models.Artist;
 
-/**
- * A placeholder fragment containing a simple view.
- */
+
 public class Fragment_Search extends Fragment{
     private static final String TAG = Fragment_Search.class.getSimpleName();
 

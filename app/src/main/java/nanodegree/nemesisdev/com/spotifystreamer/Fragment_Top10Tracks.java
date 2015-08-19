@@ -24,16 +24,14 @@ import kaaes.spotify.webapi.android.models.Track;
 import kaaes.spotify.webapi.android.models.Tracks;
 
 
-/**
- * A placeholder fragment containing a simple view.
- */
+
 public class Fragment_Top10Tracks extends Fragment {
     private static final String TAG = Fragment_Top10Tracks.class.getSimpleName();
 
     public SpotifyTrackRecyclerAdapter mSpotifyTracktAdapter;
     private RecyclerView mTrackReyclerView;
     private String artistID;
-    private String locale;
+    private String locale = "US";
     private ArrayList<Track> mLoTrack;
     public Fragment_Top10Tracks() {   }
     private boolean isFirstLaunch = true;
@@ -74,11 +72,12 @@ public class Fragment_Top10Tracks extends Fragment {
         }
 
         //Get the users set local to pass a country code to the spotify API
-        locale = getActivity().getResources().getConfiguration().locale.getCountry();
+
         initUIComponents(rootView);
 
         //Only build the track list if this is the first launch of the fragment
         if (isFirstLaunch){
+            //locale = getActivity().getResources().getConfiguration().locale.getCountry();
             buildTrackList(artistID);
         }
 
@@ -86,6 +85,13 @@ public class Fragment_Top10Tracks extends Fragment {
         isFirstLaunch = false;
 
         return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+
     }
 
     private void initUIComponents(View rootView) {
