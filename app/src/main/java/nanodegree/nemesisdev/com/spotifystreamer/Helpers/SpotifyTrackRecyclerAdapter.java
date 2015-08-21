@@ -1,7 +1,6 @@
-package nanodegree.nemesisdev.com.spotifystreamer;
+package nanodegree.nemesisdev.com.spotifystreamer.Helpers;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +10,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import kaaes.spotify.webapi.android.models.Track;
+import nanodegree.nemesisdev.com.spotifystreamer.R;
 
 /**
  * Created by Scott on 6/21/2015.

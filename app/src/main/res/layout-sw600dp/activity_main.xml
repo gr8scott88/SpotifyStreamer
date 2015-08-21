@@ -11,7 +11,7 @@
 
     <fragment
         android:id="@+id/search_fragment"
-        android:name="nanodegree.nemesisdev.com.spotifystreamer.Fragment_Search"
+        android:name="nanodegree.nemesisdev.com.spotifystreamer.Fragments.Fragment_Search"
         tools:layout="@layout/fragment_main"
         android:layout_width="0dp"
         android:layout_height="match_parent"

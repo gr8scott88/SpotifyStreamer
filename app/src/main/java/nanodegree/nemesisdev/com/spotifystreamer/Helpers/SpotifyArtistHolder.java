@@ -1,10 +1,11 @@
-package nanodegree.nemesisdev.com.spotifystreamer;
+package nanodegree.nemesisdev.com.spotifystreamer.Helpers;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import nanodegree.nemesisdev.com.spotifystreamer.R;
 
 /**
  * Created by Scott on 6/19/2015.

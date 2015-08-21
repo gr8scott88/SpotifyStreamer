@@ -1,4 +1,4 @@
-package nanodegree.nemesisdev.com.spotifystreamer;
+package nanodegree.nemesisdev.com.spotifystreamer.Fragments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -22,7 +22,8 @@ import kaaes.spotify.webapi.android.SpotifyApi;
 import kaaes.spotify.webapi.android.SpotifyService;
 import kaaes.spotify.webapi.android.models.Track;
 import kaaes.spotify.webapi.android.models.Tracks;
-
+import nanodegree.nemesisdev.com.spotifystreamer.R;
+import nanodegree.nemesisdev.com.spotifystreamer.Helpers.SpotifyTrackRecyclerAdapter;
 
 
 public class Fragment_Top10Tracks extends Fragment {

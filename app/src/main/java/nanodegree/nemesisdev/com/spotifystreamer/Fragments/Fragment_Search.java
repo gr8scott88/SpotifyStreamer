@@ -1,10 +1,9 @@
-package nanodegree.nemesisdev.com.spotifystreamer;
+package nanodegree.nemesisdev.com.spotifystreamer.Fragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -22,6 +21,8 @@ import kaaes.spotify.webapi.android.SpotifyApi;
 import kaaes.spotify.webapi.android.SpotifyService;
 import kaaes.spotify.webapi.android.models.*;
 import kaaes.spotify.webapi.android.models.Artist;
+import nanodegree.nemesisdev.com.spotifystreamer.R;
+import nanodegree.nemesisdev.com.spotifystreamer.Helpers.SpotifyArtistRecyclerAdapter;
 
 
 public class Fragment_Search extends Fragment{

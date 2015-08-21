@@ -1,4 +1,4 @@
-package nanodegree.nemesisdev.com.spotifystreamer;
+package nanodegree.nemesisdev.com.spotifystreamer.Activities;
 
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
@@ -7,6 +7,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import java.util.ArrayList;
+
+import nanodegree.nemesisdev.com.spotifystreamer.Fragments.Fragment_SpotifyStreamer;
+import nanodegree.nemesisdev.com.spotifystreamer.Objects.ParcelableTrack;
+import nanodegree.nemesisdev.com.spotifystreamer.R;
 
 
 public class Activity_Spotify_Streamer extends ActionBarActivity {

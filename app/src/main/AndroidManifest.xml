@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".Activity_Main"
+            android:name=".Activities.Activity_Main"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,20 +17,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activity_Top10Tracks"
+            android:name=".Activities.Activity_Top10Tracks"
             android:label="@string/title_activity_top10_tracks"
-            android:parentActivityName=".Activity_Main" >
+            android:parentActivityName=".Activities.Activity_Main" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="nanodegree.nemesisdev.com.spotifystreamer.Activity_Main" />
+                android:value=".Activities.Activity_Main" />
         </activity>
         <activity
-            android:name=".Activity_Spotify_Streamer"
+            android:name=".Activities.Activity_Spotify_Streamer"
             android:label="@string/title_activity_spotify__streamer"
-            android:parentActivityName=".Activity_Top10Tracks" >
+            android:parentActivityName=".Activities.Activity_Top10Tracks" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity_Top10Tracks" />
+                android:value=".Activities.Activity_Top10Tracks" />
         </activity>
     </application>
 

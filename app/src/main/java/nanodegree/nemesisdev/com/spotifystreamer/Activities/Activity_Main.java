@@ -1,4 +1,4 @@
-package nanodegree.nemesisdev.com.spotifystreamer;
+package nanodegree.nemesisdev.com.spotifystreamer.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,12 @@ import android.view.MenuItem;
 import android.widget.Toast;
 import java.util.ArrayList;
 import kaaes.spotify.webapi.android.models.Track;
+import nanodegree.nemesisdev.com.spotifystreamer.Fragments.Fragment_SpotifyStreamer;
+import nanodegree.nemesisdev.com.spotifystreamer.Fragments.Fragment_Top10Tracks;
+import nanodegree.nemesisdev.com.spotifystreamer.Objects.ParcelableTrack;
+import nanodegree.nemesisdev.com.spotifystreamer.R;
+import nanodegree.nemesisdev.com.spotifystreamer.Helpers.SpotifyArtistRecyclerAdapter;
+import nanodegree.nemesisdev.com.spotifystreamer.Helpers.SpotifyTrackRecyclerAdapter;
 
 public class Activity_Main extends AppCompatActivity implements SpotifyArtistRecyclerAdapter.ArtistCallback, SpotifyTrackRecyclerAdapter.TrackCallback {
 

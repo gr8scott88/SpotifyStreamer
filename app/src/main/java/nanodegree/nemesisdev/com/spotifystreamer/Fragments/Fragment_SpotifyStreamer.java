@@ -1,13 +1,15 @@
-package nanodegree.nemesisdev.com.spotifystreamer;
+package nanodegree.nemesisdev.com.spotifystreamer.Fragments;
 
-import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.ServiceConnection;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,11 +26,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
+import nanodegree.nemesisdev.com.spotifystreamer.Objects.ParcelableTrack;
+import nanodegree.nemesisdev.com.spotifystreamer.R;
+
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class Fragment_SpotifyStreamer extends android.support.v4.app.DialogFragment {
+public class Fragment_SpotifyStreamer extends android.support.v4.app.DialogFragment implements ServiceConnection{
 
     private static final String TAG = Fragment_SpotifyStreamer.class.getSimpleName();
 
@@ -229,9 +234,9 @@ public class Fragment_SpotifyStreamer extends android.support.v4.app.DialogFragm
                 mIsPlaying = true;
 
                 try {
-                    mPlayer.prepare();
+                    mPlayer.prepareAsync();
                     mPlayer.seekTo((int) mTimeElapsedMillis);
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 mTrackSeek.setProgress((int) mTimeElapsedMillis);
@@ -363,4 +368,14 @@ public class Fragment_SpotifyStreamer extends android.support.v4.app.DialogFragm
             mSeekDurationHandler.postDelayed(this, mDurationPostDelay);
         }
     };
+
+    @Override
+    public void onServiceConnected(ComponentName name, IBinder service) {
+
+    }
+
+    @Override
+    public void onServiceDisconnected(ComponentName name) {
+
+    }
 }
