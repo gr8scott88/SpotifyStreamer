@@ -77,9 +77,7 @@ public class Fragment_SpotifyStreamer extends android.support.v4.app.DialogFragm
                 mLoTracks = arguments.getParcelableArrayList(getString(R.string.key_parcelable_track_list));
                 mCurrentTrack = mLoTracks.get(mCurrentTrackPos);
             }else{
-                //Error in the event that an artist id isn't passed, which means something went wrong
-                //TODO Fix Error Message
-                //Toast.makeText(getActivity(), getActivity().getString(R.string.error_did_not_receive_artist), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), R.string.error_generic, Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -258,7 +256,7 @@ public class Fragment_SpotifyStreamer extends android.support.v4.app.DialogFragm
 
     private void updateSeekBar(int timeElapsed){
         //set seekbar progress
-        mTrackSeek.setProgress((int) timeElapsed);
+        mTrackSeek.setProgress(timeElapsed);
 
         //set "seekbar" text
         mCurrentTrackTime.setText(String.format("%02d:%02d",
@@ -270,23 +268,24 @@ public class Fragment_SpotifyStreamer extends android.support.v4.app.DialogFragm
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-          if (intent.getAction().equals(getString(R.string.BROADCAST_STATUS)));
+            if (intent.getAction().equals(getString(R.string.BROADCAST_STATUS))) {
                 Boolean isNewTrack = intent.getBooleanExtra(getString(R.string.broadcast_new_track), false);
                 boolean isPlaying = intent.getBooleanExtra(getString(R.string.broadcast_is_playing), false);
-                if (isNewTrack){
+                if (isNewTrack) {
                     //If broadcast says a new track is playing
                     ParcelableTrack newTrack = intent.getParcelableExtra(getString(R.string.broadcast_track));
                     updateDialogUI(newTrack);
                     updateSeekBar(0);
-                }else if (mIsPlaying != isPlaying){
+                } else if (mIsPlaying != isPlaying) {
                     //If broadcast says the playing status has changed
                     mIsPlaying = isPlaying;
                     updatePlayPauseButton(mIsPlaying);
-                }else{
+                } else {
                     //If no special condition, simply update the seekbar
                     int timeElapsed = intent.getIntExtra(getString(R.string.broadcast_time_elapsed), 0);
                     updateSeekBar(timeElapsed);
                 }
+            }
         }
     };
 

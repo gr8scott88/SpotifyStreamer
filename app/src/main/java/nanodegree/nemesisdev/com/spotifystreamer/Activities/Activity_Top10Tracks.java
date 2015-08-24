@@ -66,7 +66,7 @@ public class Activity_Top10Tracks extends AppCompatActivity implements SpotifyTr
     @Override
     public void onTrackClick(int pos, ArrayList<Track> LoTracks) {
         Track current = LoTracks.get(pos);
-        Toast.makeText(this, "(PHONE)Clicked on " + current.id, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "(PHONE)Clicked on " + current.id, Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(this, Activity_Spotify_Streamer.class);
         intent.putExtra(getString(R.string.key_selected_track), pos);
@@ -74,7 +74,7 @@ public class Activity_Top10Tracks extends AppCompatActivity implements SpotifyTr
 
         //Build parcelable track list from the list of tracks
         //TODO increase efficiency?
-        ArrayList<ParcelableTrack> parcelableTrackList = new ArrayList<ParcelableTrack>();
+        ArrayList<ParcelableTrack> parcelableTrackList = new ArrayList<>();
         for (Track t : LoTracks){
             parcelableTrackList.add(new ParcelableTrack(t));
         }

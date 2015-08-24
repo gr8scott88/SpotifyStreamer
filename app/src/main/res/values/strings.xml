@@ -22,4 +22,5 @@
     <string name="broadcast_is_playing">BROADCAST_IS_PLAYING</string>
     <string name="broadcast_time_elapsed">BROADCAST_TIME_ELAPSED</string>
     <string name="broadcast_new_track">BROADCAST_NEW_TRACK</string>
+    <string name="error_generic">Something went wrong, please try again</string>
 </resources>

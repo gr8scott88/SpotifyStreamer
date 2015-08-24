@@ -40,7 +40,7 @@ public class Activity_Main extends AppCompatActivity implements SpotifyArtistRec
             }
         }
 
-        Toast.makeText(this, "Layout type: " + mLayoutType, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Layout type: " + mLayoutType, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -68,7 +68,7 @@ public class Activity_Main extends AppCompatActivity implements SpotifyArtistRec
     @Override
     public void onArtistClick(String artistId) {
         if (mLayoutType == 1){
-            Toast.makeText(this, "(TABLET)Clicked on " + artistId, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "(TABLET)Clicked on " + artistId, Toast.LENGTH_SHORT).show();
             Bundle args = new Bundle();
             args.putString(this.getString(R.string.key_artist_id_extra), artistId);
 
@@ -83,7 +83,7 @@ public class Activity_Main extends AppCompatActivity implements SpotifyArtistRec
             intent.putExtra(this.getString(R.string.key_artist_id_extra), artistId);
             startActivity(intent);
 
-           Toast.makeText(this, "(PHONE)Clicked on " + artistId, Toast.LENGTH_SHORT).show();
+           //Toast.makeText(this, "(PHONE)Clicked on " + artistId, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -91,12 +91,12 @@ public class Activity_Main extends AppCompatActivity implements SpotifyArtistRec
     public void onTrackClick(int pos, ArrayList<Track> LoTracks) {
         Track current = LoTracks.get(pos);
         if (mLayoutType == 1){
-            Toast.makeText(this, "(TABLET)Clicked on " + current.id, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "(TABLET)Clicked on " + current.id, Toast.LENGTH_SHORT).show();
             Bundle args = new Bundle();
 
             //Build parcelable track list from the list of tracks
             //TODO increase efficiency?
-            ArrayList<ParcelableTrack> parcelableTrackList = new ArrayList<ParcelableTrack>();
+            ArrayList<ParcelableTrack> parcelableTrackList = new ArrayList<>();
             for (Track t : LoTracks){
                 parcelableTrackList.add(new ParcelableTrack(t));
             }
@@ -106,7 +106,7 @@ public class Activity_Main extends AppCompatActivity implements SpotifyArtistRec
 
             showSteamerDialog(args);
         } else {
-            Toast.makeText(this, "(PHONE)Clicked on " + current.id, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "(PHONE)Clicked on " + current.id, Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, Activity_Spotify_Streamer.class);
             intent.putExtra(this.getString(R.string.key_track_id_extra), current.id);
             this.startActivity(intent);
