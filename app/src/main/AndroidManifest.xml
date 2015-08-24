@@ -32,7 +32,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activities.Activity_Top10Tracks" />
         </activity>
+
+        <service android:name=".Services.SpotifyStreamerService">
+
+        </service>
     </application>
+
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

@@ -17,4 +17,9 @@
     <string name="key_preview_url">KEY_PREVIEW_URL</string>
     <string name="key_parcelable_track_list">KEY_PARCELABLE_TRACK_LIST</string>
     <string name="key_selected_track">KEY_SELECTED_TRACK</string>
+    <string name="BROADCAST_STATUS">PLAYER_STATUS</string>
+    <string name="broadcast_track">BROADCAST_TRACK</string>
+    <string name="broadcast_is_playing">BROADCAST_IS_PLAYING</string>
+    <string name="broadcast_time_elapsed">BROADCAST_TIME_ELAPSED</string>
+    <string name="broadcast_new_track">BROADCAST_NEW_TRACK</string>
 </resources>

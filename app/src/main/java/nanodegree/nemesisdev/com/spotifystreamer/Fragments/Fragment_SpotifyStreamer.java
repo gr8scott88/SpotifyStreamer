@@ -1,7 +1,10 @@
 package nanodegree.nemesisdev.com.spotifystreamer.Fragments;
 
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -10,6 +13,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +32,7 @@ import java.util.concurrent.TimeUnit;
 
 import nanodegree.nemesisdev.com.spotifystreamer.Objects.ParcelableTrack;
 import nanodegree.nemesisdev.com.spotifystreamer.R;
+import nanodegree.nemesisdev.com.spotifystreamer.Services.SpotifyStreamerService;
 
 
 /**
@@ -41,47 +46,29 @@ public class Fragment_SpotifyStreamer extends android.support.v4.app.DialogFragm
     private ImageButton mButtonNext;
     private ImageButton mButtonPlayPause;
     private boolean mIsPlaying = true;
-    private MediaPlayer mPlayer;
+
     private TextView mArtistName;
     private TextView mAlbumTitle;
     private TextView mTrackTitle;
     private ImageView mAlbumCover;
 
     private TextView mCurrentTrackTime;
-    private TextView mCurrentTrackLength;
-    private int mDurationPostDelay = 1000;
-    private double mTimeElapsedMillis, mTrackLengthSec = 30;
+    private double mTrackLengthSec = 30;
     private SeekBar mTrackSeek;
-    private Handler mSeekDurationHandler = new Handler();
 
     private ArrayList<ParcelableTrack> mLoTracks;
     private int mCurrentTrackPos;
     private ParcelableTrack mCurrentTrack;
 
+    private SpotifyStreamerService mSpotifyStreamerService;
+    LocalBroadcastManager mLocalBroadcastManager;
 
-
-    private String previewURL;
-    private String trackID;
-
-
-
-    public Fragment_SpotifyStreamer() {
-
-
-    }
+    public Fragment_SpotifyStreamer() { }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-
-    }
-
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
 
         if (savedInstanceState == null){
             Bundle arguments  = getArguments();
@@ -92,20 +79,33 @@ public class Fragment_SpotifyStreamer extends android.support.v4.app.DialogFragm
             }else{
                 //Error in the event that an artist id isn't passed, which means something went wrong
                 //TODO Fix Error Message
-                Toast.makeText(getActivity(), getActivity().getString(R.string.error_did_not_receive_artist), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), getActivity().getString(R.string.error_did_not_receive_artist), Toast.LENGTH_SHORT).show();
             }
         }
 
+        Log.v(TAG, "Binding service");
+        Context ctx = getActivity().getApplicationContext();
+        Intent bindIntent = new Intent(ctx, SpotifyStreamerService.class);
+        ctx.startService(bindIntent);
+        ctx.bindService(bindIntent, this, Context.BIND_AUTO_CREATE);
+
+        mLocalBroadcastManager = LocalBroadcastManager.getInstance(ctx);
+
+    }
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_spotify_streamer, container, false);
 
         initUIComponents(rootView);
         attachListeners();
 
-        if (savedInstanceState == null){
-            managePlayback(0);
-        }else{
-            managePlayback(4);
+        if (savedInstanceState != null){
+            mCurrentTrack = mSpotifyStreamerService.getCurrentTrack();
+            updateDialogUI(mCurrentTrack);
         }
 
         return rootView;
@@ -114,22 +114,23 @@ public class Fragment_SpotifyStreamer extends android.support.v4.app.DialogFragm
 
 
     @Override
+    public void onResume() {
+        super.onResume();
+        mLocalBroadcastManager.registerReceiver(receiver, new IntentFilter(getString(R.string.BROADCAST_STATUS)));
+    }
+
+    @Override
+    public void onPause() {
+        mLocalBroadcastManager.unregisterReceiver(receiver);
+        super.onPause();
+    }
+
+    @Override
     public void onDestroyView() {
         if (getDialog() != null && getRetainInstance())
             getDialog().setDismissMessage(null);
         super.onDestroyView();
     }
-
-    @Override
-    public void onPause() {
-        if (mIsPlaying){
-            mIsPlaying = false;
-            mSeekDurationHandler.removeCallbacks(updateSeekBarTime);
-            mPlayer.stop();
-        }
-        super.onPause();
-    }
-
 
     private void initUIComponents(View rootView) {
 
@@ -141,117 +142,45 @@ public class Fragment_SpotifyStreamer extends android.support.v4.app.DialogFragm
         mTrackSeek = (SeekBar) rootView.findViewById(R.id.streamer_seek_bar);
         mTrackSeek.setMax((int) mTrackLengthSec * 1000);
 
-        if (mPlayer == null){
-            mPlayer = new MediaPlayer();
-            mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        }else{
-
-        }
-
         mArtistName = (TextView) rootView.findViewById(R.id.streamer_artist_name);
         mAlbumTitle = (TextView) rootView.findViewById(R.id.streamer_album_title);
         mTrackTitle = (TextView) rootView.findViewById(R.id.streamer_song_title);
         mAlbumCover = (ImageView) rootView.findViewById(R.id.streamer_album_cover);
 
-
-
     }
 
-    public void attachListeners(){
+    private void attachListeners(){
         mButtonPlayPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                managePlayback(1);
+                if (mIsPlaying){
+                    pauseTrack();
+                }else{
+                    playTrack();
+                }
             }
         });
 
         mButtonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                managePlayback(2);
+                nextTrack();
             }
         });
 
         mButtonPrevious.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                managePlayback(3);
+                prevTrack();
             }
         });
-
-    }
-
-    //Type:
-    //0 = Init
-    //1 = PlayPause
-    //2 = Track Next
-    //3 = Track Prev
-    //4 = Continue Playing Track
-    public void managePlayback(int type){
-        switch (type){
-            case 0:
-                mIsPlaying = true;
-                rebuildUI();
-                playTrack(1);
-
-                break;
-            case 1:
-                if (mIsPlaying) {
-                    stopTrack();
-                    mSeekDurationHandler.removeCallbacks(updateSeekBarTime);
-                    mIsPlaying = false;
-                    rebuildUI();
-
-                }else {
-                    playTrack(0);
-                    mIsPlaying = true;
-                    rebuildUI();
-                }
-                break;
-            case 2:
-                this.mCurrentTrackPos += 1;
-                if (this.mCurrentTrackPos >= this.mLoTracks.size()){
-                    this.mCurrentTrackPos = 0;
-                }
-                mSeekDurationHandler.removeCallbacks(updateSeekBarTime);
-                this.mCurrentTrack = this.mLoTracks.get(this.mCurrentTrackPos);
-                rebuildUI();
-                playTrack(1);
-
-                break;
-            case 3:
-                this.mCurrentTrackPos -= 1;
-                if (this.mCurrentTrackPos < 0){
-                    this.mCurrentTrackPos = this.mLoTracks.size()-1;
-                }
-                mSeekDurationHandler.removeCallbacks(updateSeekBarTime);
-                this.mCurrentTrack = this.mLoTracks.get(this.mCurrentTrackPos);
-                rebuildUI();
-                playTrack(1);
-                break;
-
-            case 4:
-                mIsPlaying = true;
-
-                try {
-                    mPlayer.prepareAsync();
-                    mPlayer.seekTo((int) mTimeElapsedMillis);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                mTrackSeek.setProgress((int) mTimeElapsedMillis);
-                playTrack(0);
-                rebuildUI();
-                break;
-        }
-
 
         mTrackSeek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 //mPlayer.pause();
-                if (fromUser){
-                    mPlayer.seekTo(progress);
+                if (fromUser) {
+                   skipToTime(progress);
                 }
 
                 //mPlayer.start();
@@ -269,76 +198,31 @@ public class Fragment_SpotifyStreamer extends android.support.v4.app.DialogFragm
         });
     }
 
-    private void playTrack(int type){
 
-        //Type
-        //0 = Play / Pause Same Track
-        // 1 = Play New Track
-        switch (type){
-            case 0:
-                try {
-                    mPlayer.start();
-                    mTimeElapsedMillis = mPlayer.getCurrentPosition();
-                    mTrackSeek.setProgress((int) mTimeElapsedMillis);
-                    mSeekDurationHandler.postDelayed(updateSeekBarTime, mDurationPostDelay);
-                    mIsPlaying = true;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                break;
-
-            case 1:
-                try {
-                    mPlayer.reset();
-                    mPlayer.setDataSource(mCurrentTrack.getTrackPreviewUrl());
-                    mTimeElapsedMillis = mPlayer.getCurrentPosition();
-                    mTrackSeek.setProgress((int) mTimeElapsedMillis);
-                    mSeekDurationHandler.postDelayed(updateSeekBarTime, mDurationPostDelay);
-                    Log.v(TAG, "....Preparing...");
-                    mPlayer.prepare();
-                    Log.v(TAG, "....Starting...");
-                    mPlayer.start();
-                    mIsPlaying = true;
-                    rebuildUI();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                break;
-        }
-
+    private void playTrack() {
+        Log.v(TAG, "Play track clicked in fragment");
+        mSpotifyStreamerService.playTrack();
     }
 
-    private void stopTrack(){
-        //If music is playing, stop it and change status
-        Log.v(TAG, "Music was playing, stopping");
-        try{
-            Log.v(TAG, "....Stopping...");
-            mPlayer.pause();
-            mIsPlaying = false;
-        }catch (Exception e){
-            e.printStackTrace();
-            Log.v(TAG, e.toString());
-        }
+    private void pauseTrack(){
+        Log.v(TAG, "Pause track clicked in fragment");
+        mSpotifyStreamerService.pauseTrack();
     }
 
+    private void nextTrack(){
+        Log.v(TAG, "Next track clicked in fragment");
+        mSpotifyStreamerService.nextTrack();
+    }
 
-    private void rebuildUI(){
-        mArtistName.setText(mCurrentTrack.getArtistName());
-        mAlbumTitle.setText(mCurrentTrack.getAlbumName());
-        mTrackTitle.setText(mCurrentTrack.getSongTitle());
+    private void prevTrack(){
+        Log.v(TAG, "Prev track clicked in fragment");
+        mSpotifyStreamerService.prevTrack();
+    }
 
-        Picasso.with(getActivity()).load(mCurrentTrack.getAlbumImageUrl())
-                .error(R.drawable.spotify_icon_no_image_found)
-                .placeholder(R.drawable.spotify_icon_no_image_found)
-                .into(mAlbumCover);
+    private void skipToTime(int seekTime){
+        Log.v(TAG, "Seek bar clicked in fragment");
+        mSpotifyStreamerService.skipTo(seekTime);
 
-        if (mIsPlaying){
-            mButtonPlayPause.setImageResource(android.R.drawable.ic_media_pause);
-
-        }else{
-            mButtonPlayPause.setImageResource(android.R.drawable.ic_media_play);
-
-        }
     }
 
 
@@ -351,31 +235,74 @@ public class Fragment_SpotifyStreamer extends android.support.v4.app.DialogFragm
     }
 
 
-    //handler to change seekBarTime
-    private Runnable updateSeekBarTime = new Runnable() {
-        public void run() {
-            //get current position
-            mTimeElapsedMillis = mPlayer.getCurrentPosition();
+    private void updateDialogUI(ParcelableTrack track){
+        mArtistName.setText(track.getArtistName());
+        mAlbumTitle.setText(track.getAlbumName());
+        mTrackTitle.setText(track.getSongTitle());
 
-            //set seekbar progress
-            mTrackSeek.setProgress((int) mTimeElapsedMillis);
+        Picasso.with(getActivity()).load(track.getAlbumImageUrl())
+                .error(R.drawable.spotify_icon_no_image_found)
+                .placeholder(R.drawable.spotify_icon_no_image_found)
+                .into(mAlbumCover);
+    }
 
-            mCurrentTrackTime.setText(String.format("%02d:%02d",
-                    TimeUnit.MILLISECONDS.toMinutes((long) mTimeElapsedMillis),
-                    TimeUnit.MILLISECONDS.toSeconds((long) mTimeElapsedMillis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) mTimeElapsedMillis))));
+    private void updatePlayPauseButton(Boolean isPlaying){
+        if (isPlaying){
+            mButtonPlayPause.setImageResource(android.R.drawable.ic_media_pause);
 
-            //repeat yourself that again in 100 miliseconds
-            mSeekDurationHandler.postDelayed(this, mDurationPostDelay);
+        }else{
+            mButtonPlayPause.setImageResource(android.R.drawable.ic_media_play);
+
+        }
+    }
+
+    private void updateSeekBar(int timeElapsed){
+        //set seekbar progress
+        mTrackSeek.setProgress((int) timeElapsed);
+
+        //set "seekbar" text
+        mCurrentTrackTime.setText(String.format("%02d:%02d",
+                TimeUnit.MILLISECONDS.toMinutes((long) timeElapsed),
+                TimeUnit.MILLISECONDS.toSeconds((long) timeElapsed) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) timeElapsed))));
+
+    }
+
+    private BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+          if (intent.getAction().equals(getString(R.string.BROADCAST_STATUS)));
+                Boolean isNewTrack = intent.getBooleanExtra(getString(R.string.broadcast_new_track), false);
+                boolean isPlaying = intent.getBooleanExtra(getString(R.string.broadcast_is_playing), false);
+                if (isNewTrack){
+                    //If broadcast says a new track is playing
+                    ParcelableTrack newTrack = intent.getParcelableExtra(getString(R.string.broadcast_track));
+                    updateDialogUI(newTrack);
+                    updateSeekBar(0);
+                }else if (mIsPlaying != isPlaying){
+                    //If broadcast says the playing status has changed
+                    mIsPlaying = isPlaying;
+                    updatePlayPauseButton(mIsPlaying);
+                }else{
+                    //If no special condition, simply update the seekbar
+                    int timeElapsed = intent.getIntExtra(getString(R.string.broadcast_time_elapsed), 0);
+                    updateSeekBar(timeElapsed);
+                }
         }
     };
 
     @Override
     public void onServiceConnected(ComponentName name, IBinder service) {
-
+        Log.v(TAG, "Service successfully connected");
+        mSpotifyStreamerService = ((SpotifyStreamerService.LocalBinder) service).getService();
+        mSpotifyStreamerService.setTracks(mLoTracks);
+        mSpotifyStreamerService.setTrackPos(mCurrentTrackPos);
+        mSpotifyStreamerService.playTrack();
+        updateDialogUI(mSpotifyStreamerService.getCurrentTrack());
+        updateSeekBar(0);
     }
 
     @Override
     public void onServiceDisconnected(ComponentName name) {
-
+        mSpotifyStreamerService = null;
     }
 }
