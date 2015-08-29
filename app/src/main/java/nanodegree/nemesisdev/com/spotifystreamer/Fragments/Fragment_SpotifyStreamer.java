@@ -3,6 +3,7 @@ package nanodegree.nemesisdev.com.spotifystreamer.Fragments;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
@@ -62,6 +63,9 @@ public class Fragment_SpotifyStreamer extends android.support.v4.app.DialogFragm
 
     private SpotifyStreamerService mSpotifyStreamerService;
     LocalBroadcastManager mLocalBroadcastManager;
+
+
+
 
     public Fragment_SpotifyStreamer() { }
 
@@ -127,8 +131,18 @@ public class Fragment_SpotifyStreamer extends android.support.v4.app.DialogFragm
     public void onDestroyView() {
         if (getDialog() != null && getRetainInstance())
             getDialog().setDismissMessage(null);
+
+
         super.onDestroyView();
     }
+
+
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
 
     private void initUIComponents(View rootView) {
 

@@ -199,6 +199,10 @@ public class SpotifyStreamerService extends Service {
         public SpotifyStreamerService getService(){return  SpotifyStreamerService.this;}
     }
 
+    public void clearCallbackQueue(){
+        mBroadcastHandler.removeCallbacks(broadcastStatus);
+    }
+
 
 
 

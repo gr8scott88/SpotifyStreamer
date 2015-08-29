@@ -2,6 +2,7 @@ package nanodegree.nemesisdev.com.spotifystreamer.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,7 +17,6 @@ import nanodegree.nemesisdev.com.spotifystreamer.Helpers.SpotifyArtistRecyclerAd
 import nanodegree.nemesisdev.com.spotifystreamer.Helpers.SpotifyTrackRecyclerAdapter;
 
 public class Activity_Main extends AppCompatActivity implements SpotifyArtistRecyclerAdapter.ArtistCallback, SpotifyTrackRecyclerAdapter.TrackCallback {
-
     //Layout Types:
     //  0: Standard 1 pane layout
     //  1: Widescreen, 2 pane layout
@@ -33,11 +33,14 @@ public class Activity_Main extends AppCompatActivity implements SpotifyArtistRec
 
         if (findViewById(R.id.song_fragment_container) != null) {
             mLayoutType = 1;
+
+            /*
             if (savedInstanceState == null) {
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.song_fragment_container, new Fragment_Top10Tracks(), TOP10FRAG)
                         .commit();
             }
+            */
         }
 
         //Toast.makeText(this, "Layout type: " + mLayoutType, Toast.LENGTH_SHORT).show();
@@ -104,6 +107,7 @@ public class Activity_Main extends AppCompatActivity implements SpotifyArtistRec
             args.putInt(getString(R.string.key_selected_track), pos);
             args.putParcelableArrayList(getString(R.string.key_parcelable_track_list), parcelableTrackList);
 
+            //showStreamerDialogV2(args);
             showSteamerDialog(args);
         } else {
             //Toast.makeText(this, "(PHONE)Clicked on " + current.id, Toast.LENGTH_SHORT).show();
@@ -113,10 +117,9 @@ public class Activity_Main extends AppCompatActivity implements SpotifyArtistRec
         }
     }
 
-
     private void showSteamerDialog(Bundle args){
         android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        android.support.v4.app.Fragment prev = getSupportFragmentManager().findFragmentByTag("dialog");
+        android.support.v4.app.Fragment prev = getSupportFragmentManager().findFragmentByTag("streamerDialog");
         if (prev != null) {
             ft.remove(prev);
         }
@@ -124,11 +127,12 @@ public class Activity_Main extends AppCompatActivity implements SpotifyArtistRec
 
         Fragment_SpotifyStreamer dialogFragment = new Fragment_SpotifyStreamer();
         dialogFragment.setArguments(args);
-
+        dialogFragment.setRetainInstance(true);
         //ft.commitAllowingStateLoss();
         dialogFragment.show(ft, "streamerDialog");
 
         ft.addToBackStack("streamerDialog");
+
     }
 
 }

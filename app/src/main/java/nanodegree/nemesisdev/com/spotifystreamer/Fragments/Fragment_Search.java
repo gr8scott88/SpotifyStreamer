@@ -37,9 +37,6 @@ public class Fragment_Search extends Fragment{
 
     public Fragment_Search() {    }
 
-
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +45,32 @@ public class Fragment_Search extends Fragment{
         //Retreive last search string
         loadLastSearch();
 
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+
+        initUIComponents(rootView);
+
+        return rootView;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        //This will be called in the event that the artist array is null or empty and there is a search string
+        //This could happen if the activity is closed at any point but the most recent search was retained
+        //The alternative is a populated search box with no results, which I'd prefer not to have
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         //Initialize the recyler view adapter, if theres an existing artist list use that, otherwise use a new empty list
         if (mLoArtist !=null){
             mSpotifyArtistAdapter = new SpotifyArtistRecyclerAdapter(mLoArtist, getActivity());
@@ -59,29 +82,17 @@ public class Fragment_Search extends Fragment{
         if (!mRecentSearch.equalsIgnoreCase("") && (mLoArtist == null || mLoArtist.size() == 0)){
             bRepopulateArtists = true;
         }
-    }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-
-        initUIComponents(rootView);
+        mArtistReyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mArtistReyclerView.setAdapter(mSpotifyArtistAdapter);
         attachListeners();
-        return rootView;
-    }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        //This will be called in the event that the artist array is null or empty and there is a search string
-        //This could happen if the activity is closed at any point but the most recent search was retained
-        //The alternative is a populated search box with no results, which I'd prefer not to have
         if (bRepopulateArtists){
             searchForArtist(mRecentSearch);
             bRepopulateArtists = false;
         }
+
     }
 
     private void initUIComponents(View rootView){
@@ -90,8 +101,7 @@ public class Fragment_Search extends Fragment{
         searchView = (SearchView)rootView.findViewById(R.id.search_artist);
         searchView.setQuery(mRecentSearch, true);
         mArtistReyclerView = (RecyclerView) rootView.findViewById(R.id.artist_list);
-        mArtistReyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mArtistReyclerView.setAdapter(mSpotifyArtistAdapter);
+
     }
 
     public void attachListeners(){

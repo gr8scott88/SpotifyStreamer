@@ -43,13 +43,6 @@ public class Fragment_Top10Tracks extends Fragment {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
 
-        //Initializes the recycle view adapter, if the list of tracks is not empty use that, otherwise initialize new empty list
-        if (mLoTrack !=null){
-            mSpotifyTracktAdapter = new SpotifyTrackRecyclerAdapter(mLoTrack, getActivity());
-        }else{
-            mSpotifyTracktAdapter = new SpotifyTrackRecyclerAdapter(new ArrayList<Track>(), getActivity());
-        }
-
     }
 
     @Override
@@ -57,7 +50,7 @@ public class Fragment_Top10Tracks extends Fragment {
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_top10_tracks, container, false);
-
+        initUIComponents(rootView);
 
         Bundle arguments  = getArguments();
 
@@ -74,7 +67,7 @@ public class Fragment_Top10Tracks extends Fragment {
 
         //Get the users set local to pass a country code to the spotify API
 
-        initUIComponents(rootView);
+
 
         //Only build the track list if this is the first launch of the fragment
         if (isFirstLaunch){
@@ -88,6 +81,25 @@ public class Fragment_Top10Tracks extends Fragment {
         return rootView;
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+
+        //Initializes the recycle view adapter, if the list of tracks is not empty use that, otherwise initialize new empty list
+        if (mLoTrack !=null){
+            mSpotifyTracktAdapter = new SpotifyTrackRecyclerAdapter(mLoTrack, getActivity());
+        }else{
+            mSpotifyTracktAdapter = new SpotifyTrackRecyclerAdapter(new ArrayList<Track>(), getActivity());
+        }
+
+        mTrackReyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mTrackReyclerView.setAdapter(mSpotifyTracktAdapter);
+
+
+    }
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -97,8 +109,7 @@ public class Fragment_Top10Tracks extends Fragment {
 
     private void initUIComponents(View rootView) {
         mTrackReyclerView = (RecyclerView) rootView.findViewById(R.id.track_list);
-        mTrackReyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mTrackReyclerView.setAdapter(mSpotifyTracktAdapter);
+
     }
 
     //Builds track list based on passed artist id

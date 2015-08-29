@@ -9,19 +9,19 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ffce9d55-368b-4389-9b7c-cfcca38bf35a" name="Default" comment="">
+    <list default="true" id="ffce9d55-368b-4389-9b7c-cfcca38bf35a" name="Default" comment="Fix state error bug in tablet layout">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/cache.properties.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/gradle_project_sync_data.bin" afterPath="$PROJECT_DIR$/build/intermediates/gradle_project_sync_data.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Activities/Activity_Spotify_Streamer.java" afterPath="$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Activities/Activity_Spotify_Streamer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Activities/Activity_Top10Tracks.java" afterPath="$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Activities/Activity_Top10Tracks.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Activities/Activity_Main.java" afterPath="$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Activities/Activity_Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Fragments/Fragment_Search.java" afterPath="$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Fragments/Fragment_Search.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Fragments/Fragment_SpotifyStreamer.java" afterPath="$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Fragments/Fragment_SpotifyStreamer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Fragments/Fragment_Top10Tracks.java" afterPath="$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Fragments/Fragment_Top10Tracks.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Services/SpotifyStreamerService.java" afterPath="$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Services/SpotifyStreamerService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout-sw600dp/activity_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-sw600dp/activity_main.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" afterPath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="SpotifyStreamer.iws" />
@@ -50,23 +50,28 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <file leaf-file-name="Activity_Main.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Activities/Activity_Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="38" column="18" selection-start-line="38" selection-start-column="18" selection-end-line="38" selection-end-column="18" />
+            <state vertical-scroll-proportion="-11.931034">
+              <caret line="118" column="0" selection-start-line="118" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
               <folding>
-                <element signature="e#790#827#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#2956#3000#0" expanded="true" />
+                <element signature="e#3417#3461#0" expanded="true" />
+                <element signature="e#4245#4283#0" expanded="true" />
+                <element signature="e#4331#4376#0" expanded="true" />
+                <element signature="e#4702#4745#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Activity_Main.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Activities/Activity_Main.java">
+      <file leaf-file-name="SpotifyArtistRecyclerAdapter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Helpers/SpotifyArtistRecyclerAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="109" column="70" selection-start-line="109" selection-start-column="45" selection-end-line="109" selection-end-column="70" />
+              <caret line="31" column="49" selection-start-line="31" selection-start-column="34" selection-end-line="31" selection-end-column="49" />
               <folding />
             </state>
           </provider>
@@ -87,11 +92,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Activity_Spotify_Streamer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Activities/Activity_Spotify_Streamer.java">
+      <file leaf-file-name="Fragment_Top10Tracks.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Fragments/Fragment_Top10Tracks.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+            <state vertical-scroll-proportion="-9.586206">
+              <caret line="167" column="23" selection-start-line="167" selection-start-column="23" selection-end-line="167" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -100,11 +105,21 @@
       <file leaf-file-name="Fragment_SpotifyStreamer.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Fragments/Fragment_SpotifyStreamer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.0327696">
-              <caret line="297" column="50" selection-start-line="297" selection-start-column="50" selection-end-line="297" selection-end-column="50" />
+            <state vertical-scroll-proportion="2.6695747">
+              <caret line="144" column="0" selection-start-line="144" selection-start-column="0" selection-end-line="144" selection-end-column="0" />
               <folding>
-                <element signature="method#attachListeners#0;class#Fragment_SpotifyStreamer#0" expanded="false" />
-                <element signature="class#5849:6388" expanded="false" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#2507#2545#0" expanded="true" />
+                <element signature="e#2609#2654#0" expanded="true" />
+                <element signature="e#2787#2809#0" expanded="true" />
+                <element signature="e#3882#3918#0" expanded="true" />
+                <element signature="e#4326#4327#0" expanded="true" />
+                <element signature="e#4377#4378#0" expanded="true" />
+                <element signature="e#9114#9150#0" expanded="true" />
+                <element signature="e#9215#9254#0" expanded="true" />
+                <element signature="e#9323#9363#0" expanded="true" />
+                <element signature="e#9543#9578#0" expanded="true" />
+                <element signature="e#10044#10086#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -114,14 +129,12 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Services/SpotifyStreamerService.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="92" column="30" selection-start-line="92" selection-start-column="30" selection-end-line="92" selection-end-column="30" />
+              <caret line="203" column="5" selection-start-line="203" selection-start-column="5" selection-end-line="203" selection-end-column="5" />
               <folding>
-                <element signature="e#1774#1775#0" expanded="true" />
-                <element signature="e#1807#1808#0" expanded="true" />
-                <element signature="e#2066#2067#0" expanded="true" />
-                <element signature="e#2099#2100#0" expanded="true" />
                 <element signature="e#2870#2871#0" expanded="true" />
                 <element signature="e#2907#2908#0" expanded="true" />
+                <element signature="e#5944#5945#0" expanded="true" />
+                <element signature="e#6010#6011#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1497,10 +1510,14 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Activities/Activity_Main.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Activities/Activity_Spotify_Streamer.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Activities/Activity_Top10Tracks.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Helpers/SpotifyArtistRecyclerAdapterV2.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Fragments/Fragment_Search.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Fragments/Fragment_Top10Tracks.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-sw600dp/activity_main.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Activities/Activity_Main.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Services/SpotifyStreamerService.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Fragments/Fragment_SpotifyStreamer.java" />
       </list>
@@ -1665,6 +1682,66 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SpotifyStreamer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SpotifyStreamer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="layout-sw600dp-land" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SpotifyStreamer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SpotifyStreamer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="layout-sw600dp" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1900,12 +1977,18 @@
     <property name="settings.editor.selected.configurable" value="Errors" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
-    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="192.168.56.101:5555" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="192.168.56.101:5555 192.168.56.102:5555 0300d7c3d0219d8d" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="Nexus_5_API_21_x86" />
     <property name="OverrideImplement.combined" value="true" />
     <property name="OverrideImplement.overriding.sorted" value="false" />
     <property name="FullScreen" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../VCS Validation/SpotifyStreamer-master" />
+    <property name="restartRequiresConfirmation" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="nanodegree.nemesisdev.com.spotifystreamer.Helpers" />
+    </key>
   </component>
   <component name="RunManager" selected="Android Application.app">
     <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
@@ -2062,14 +2145,14 @@
       <option name="CLEAR_LOGCAT" value="false" />
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
       <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
-      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="0" />
-      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
-      <option name="SELECTED_CLOUD_DEVICE_CONFIGURATION_ID" value="0" />
-      <option name="SELECTED_CLOUD_DEVICE_PROJECT_ID" value="" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="Please select a project..." />
+      <option name="SELECTED_CLOUD_DEVICE_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_DEVICE_PROJECT_ID" value="Please select a project..." />
       <option name="IS_VALID_CLOUD_MATRIX_SELECTION" value="false" />
-      <option name="INVALID_CLOUD_MATRIX_SELECTION_ERROR" value="" />
+      <option name="INVALID_CLOUD_MATRIX_SELECTION_ERROR" value="Cloud configuration not specified" />
       <option name="IS_VALID_CLOUD_DEVICE_SELECTION" value="false" />
-      <option name="INVALID_CLOUD_DEVICE_SELECTION_ERROR" value="" />
+      <option name="INVALID_CLOUD_DEVICE_SELECTION_ERROR" value="Cloud configuration not specified" />
       <option name="CLOUD_DEVICE_SERIAL_NUMBER" value="" />
       <method />
     </configuration>
@@ -2128,7 +2211,13 @@
       <option name="project" value="LOCAL" />
       <updated>1440633703060</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Fix up navigation bug from spotify streamer activity to top10tracks activity">
+      <created>1440868491011</created>
+      <option name="number" value="00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1440868491011</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TodoView">
@@ -2160,6 +2249,7 @@
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16255961" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32936507" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
@@ -2170,7 +2260,6 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32936507" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -2193,7 +2282,9 @@
     <MESSAGE value="Converted media player to run as a service" />
     <MESSAGE value="Removed debug toast messages" />
     <MESSAGE value="Add SpotifyStreamerService to VCS" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add SpotifyStreamerService to VCS" />
+    <MESSAGE value="Fix up navigation bug from spotify streamer activity to top10tracks activity" />
+    <MESSAGE value="Fix state error bug in tablet layout" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix state error bug in tablet layout" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2216,8 +2307,14 @@
           <properties />
           <option name="timeStamp" value="18" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Activities/Activity_Main.java</url>
+          <line>120</line>
+          <properties />
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="19" />
+      <option name="time" value="23" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -2227,8 +2324,18 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="225" column="17" selection-start-line="211" selection-start-column="14" selection-end-line="225" selection-end-column="17" />
           <folding>
-            <element signature="method#attachListeners#0;class#Fragment_SpotifyStreamer#0" expanded="false" />
-            <element signature="class#5849:6388" expanded="false" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#2507#2545#0" expanded="true" />
+            <element signature="e#2609#2654#0" expanded="true" />
+            <element signature="e#2787#2809#0" expanded="true" />
+            <element signature="e#3882#3918#0" expanded="true" />
+            <element signature="e#4326#4327#0" expanded="true" />
+            <element signature="e#4377#4378#0" expanded="true" />
+            <element signature="e#9114#9150#0" expanded="true" />
+            <element signature="e#9215#9254#0" expanded="true" />
+            <element signature="e#9323#9363#0" expanded="true" />
+            <element signature="e#9543#9578#0" expanded="true" />
+            <element signature="e#10044#10086#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2245,8 +2352,18 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="225" column="17" selection-start-line="211" selection-start-column="14" selection-end-line="225" selection-end-column="17" />
           <folding>
-            <element signature="method#attachListeners#0;class#Fragment_SpotifyStreamer#0" expanded="false" />
-            <element signature="class#5849:6388" expanded="false" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#2507#2545#0" expanded="true" />
+            <element signature="e#2609#2654#0" expanded="true" />
+            <element signature="e#2787#2809#0" expanded="true" />
+            <element signature="e#3882#3918#0" expanded="true" />
+            <element signature="e#4326#4327#0" expanded="true" />
+            <element signature="e#4377#4378#0" expanded="true" />
+            <element signature="e#9114#9150#0" expanded="true" />
+            <element signature="e#9215#9254#0" expanded="true" />
+            <element signature="e#9323#9363#0" expanded="true" />
+            <element signature="e#9543#9578#0" expanded="true" />
+            <element signature="e#10044#10086#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2279,13 +2396,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Helpers/SpotifyArtistRecyclerAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5147992">
-          <caret line="76" column="14" selection-start-line="76" selection-start-column="14" selection-end-line="76" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2307,34 +2417,66 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Helpers/SpotifyTrackRecyclerAdapter.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Activities/Activity_Spotify_Streamer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.41738066">
-          <caret line="47" column="47" selection-start-line="47" selection-start-column="47" selection-end-line="47" selection-end-column="47" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/AppData/Local/Android/sdk/extras/android/m2repository/com/android/support/support-v4/22.2.1/support-v4-22.2.1-sources.jar!/android/support/v4/app/FragmentManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33248731">
+          <caret line="1949" column="19" selection-start-line="1949" selection-start-column="8" selection-end-line="1949" selection-end-column="19" />
+          <folding>
+            <element signature="e#76445#76446#0" expanded="true" />
+            <element signature="e#76480#76481#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/AppData/Local/Android/sdk/extras/android/m2repository/com/android/support/support-v4/22.2.1/support-v4-22.2.1-sources.jar!/android/support/v4/app/BackStackRecord.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33292535">
+          <caret line="636" column="0" selection-start-line="636" selection-start-column="0" selection-end-line="636" selection-end-column="0" />
+          <folding>
+            <element signature="e#21658#21659#0" expanded="false" />
+            <element signature="e#21702#21703#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/AppData/Local/Android/sdk/extras/android/m2repository/com/android/support/support-v4/22.2.1/support-v4-22.2.1-sources.jar!/android/support/v4/app/DialogFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33292535">
+          <caret line="155" column="0" selection-start-line="155" selection-start-column="0" selection-end-line="155" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Helpers/SpotifyTrackHolder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.499388">
-          <caret line="30" column="17" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="17" />
-          <folding />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+          <folding>
+            <element signature="e#1152#1153#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Fragments/Fragment_Top10Tracks.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Helpers/SpotifyTrackRecyclerAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.9351285">
-          <caret line="28" column="13" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
+        <state vertical-scroll-proportion="0.47858018">
+          <caret line="33" column="82" selection-start-line="33" selection-start-column="82" selection-end-line="33" selection-end-column="82" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Activities/Activity_Main.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Helpers/SpotifyArtistRecyclerAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="109" column="70" selection-start-line="109" selection-start-column="45" selection-end-line="109" selection-end-column="70" />
+          <caret line="31" column="49" selection-start-line="31" selection-start-column="34" selection-end-line="31" selection-end-column="49" />
           <folding />
         </state>
       </provider>
@@ -2352,36 +2494,124 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Activities/Activity_Spotify_Streamer.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_main.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_top10_tracks.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.275862">
+          <caret line="9" column="56" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-sw600dp/activity_main.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-17.0">
+          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Activities/Activity_Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.931034">
+          <caret line="118" column="0" selection-start-line="118" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2956#3000#0" expanded="true" />
+            <element signature="e#3417#3461#0" expanded="true" />
+            <element signature="e#4245#4283#0" expanded="true" />
+            <element signature="e#4331#4376#0" expanded="true" />
+            <element signature="e#4702#4745#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Fragments/Fragment_Top10Tracks.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.586206">
+          <caret line="167" column="23" selection-start-line="167" selection-start-column="23" selection-end-line="167" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Fragments/Fragment_Search.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-109.62069">
+          <caret line="191" column="47" selection-start-line="191" selection-start-column="47" selection-end-line="191" selection-end-column="47" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Android/sdk/sources/android-22/android/os/Handler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33292535">
+          <caret line="480" column="22" selection-start-line="480" selection-start-column="22" selection-end-line="480" selection-end-column="22" />
+          <folding>
+            <element signature="e#20193#20194#0" expanded="true" />
+            <element signature="e#20245#20246#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Services/SpotifyStreamerService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="92" column="30" selection-start-line="92" selection-start-column="30" selection-end-line="92" selection-end-column="30" />
+          <caret line="203" column="5" selection-start-line="203" selection-start-column="5" selection-end-line="203" selection-end-column="5" />
           <folding>
-            <element signature="e#1774#1775#0" expanded="true" />
-            <element signature="e#1807#1808#0" expanded="true" />
-            <element signature="e#2066#2067#0" expanded="true" />
-            <element signature="e#2099#2100#0" expanded="true" />
             <element signature="e#2870#2871#0" expanded="true" />
             <element signature="e#2907#2908#0" expanded="true" />
+            <element signature="e#5944#5945#0" expanded="true" />
+            <element signature="e#6010#6011#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/nanodegree/nemesisdev/com/spotifystreamer/Fragments/Fragment_SpotifyStreamer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.0327696">
-          <caret line="297" column="50" selection-start-line="297" selection-start-column="50" selection-end-line="297" selection-end-column="50" />
+        <state vertical-scroll-proportion="2.6695747">
+          <caret line="144" column="0" selection-start-line="144" selection-start-column="0" selection-end-line="144" selection-end-column="0" />
           <folding>
-            <element signature="method#attachListeners#0;class#Fragment_SpotifyStreamer#0" expanded="false" />
-            <element signature="class#5849:6388" expanded="false" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#2507#2545#0" expanded="true" />
+            <element signature="e#2609#2654#0" expanded="true" />
+            <element signature="e#2787#2809#0" expanded="true" />
+            <element signature="e#3882#3918#0" expanded="true" />
+            <element signature="e#4326#4327#0" expanded="true" />
+            <element signature="e#4377#4378#0" expanded="true" />
+            <element signature="e#9114#9150#0" expanded="true" />
+            <element signature="e#9215#9254#0" expanded="true" />
+            <element signature="e#9323#9363#0" expanded="true" />
+            <element signature="e#9543#9578#0" expanded="true" />
+            <element signature="e#10044#10086#0" expanded="true" />
           </folding>
         </state>
       </provider>
