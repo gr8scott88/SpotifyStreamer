@@ -12,14 +12,14 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".Activities.Activity_Top10Tracks"
             android:label="@string/title_activity_top10_tracks"
-            android:parentActivityName=".Activities.Activity_Main" >
+            android:parentActivityName=".Activities.Activity_Main"
+            android:launchMode="singleTop">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activities.Activity_Main" />

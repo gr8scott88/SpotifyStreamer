@@ -1,8 +1,10 @@
 package nanodegree.nemesisdev.com.spotifystreamer.Activities;
 
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -13,7 +15,7 @@ import nanodegree.nemesisdev.com.spotifystreamer.Objects.ParcelableTrack;
 import nanodegree.nemesisdev.com.spotifystreamer.R;
 
 
-public class Activity_Spotify_Streamer extends ActionBarActivity {
+public class Activity_Spotify_Streamer extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +41,11 @@ public class Activity_Spotify_Streamer extends ActionBarActivity {
                     .add(R.id.streamer_fragment_container, fragment)
                     .commit();
         }
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
+
+
 
 
     @Override
@@ -57,9 +62,13 @@ public class Activity_Spotify_Streamer extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id){
+            case R.id.action_settings:
+                return true;
+
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
         }
 
         return super.onOptionsItemSelected(item);

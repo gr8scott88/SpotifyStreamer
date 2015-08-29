@@ -89,8 +89,12 @@ public class SpotifyStreamerService extends Service {
         });
     }
 
+    public void declareNewTrack(){
+        this.mNewTrack = true;
+    }
+
     private void broadcastMessage(){
-        Log.v(TAG, "Broadcasting Message");
+        //Log.v(TAG, "Broadcasting Message");
         int timeElapsed = mPlayer.getCurrentPosition();
         Intent intent = new Intent(getString(R.string.BROADCAST_STATUS));
         intent.putExtra(getString(R.string.broadcast_track), mTracks.get(mTrackPos));

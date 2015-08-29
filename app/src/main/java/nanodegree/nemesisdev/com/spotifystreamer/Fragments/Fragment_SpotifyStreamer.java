@@ -295,6 +295,7 @@ public class Fragment_SpotifyStreamer extends android.support.v4.app.DialogFragm
         mSpotifyStreamerService = ((SpotifyStreamerService.LocalBinder) service).getService();
         mSpotifyStreamerService.setTracks(mLoTracks);
         mSpotifyStreamerService.setTrackPos(mCurrentTrackPos);
+        mSpotifyStreamerService.declareNewTrack();
         mSpotifyStreamerService.playTrack();
         updateDialogUI(mSpotifyStreamerService.getCurrentTrack());
         updateSeekBar(0);
